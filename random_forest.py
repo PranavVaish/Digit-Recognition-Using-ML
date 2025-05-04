@@ -10,7 +10,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 
 def load_hog_features(csv_path="hog_features.csv"):
-    """Load HOG features from CSV file."""
+    #Load HOG features from CSV file.
     if not os.path.exists(csv_path):
         raise FileNotFoundError(f"HOG features file not found: {csv_path}")
     
@@ -68,7 +68,7 @@ def train_random_forest(X, y, n_estimators=100, max_depth=None, min_samples_spli
     return rf, scaler, (X_train_scaled, X_test_scaled, y_train, y_test, y_pred)
 
 def plot_confusion_matrix(y_test, y_pred):
-    """Plot and save confusion matrix."""
+    #Plot and save confusion matrix.
     # Create confusion matrix
     cm = confusion_matrix(y_test, y_pred)
     
@@ -88,14 +88,14 @@ def plot_confusion_matrix(y_test, y_pred):
     print("Confusion matrix saved as 'rf_hog_confusion_matrix.png'")
 
 def plot_feature_importance(rf_model, num_features=20):
-    """Plot top feature importances from Random Forest model."""
+    #Plot top feature importances from Random Forest model.
     # Get feature importances
     importances = rf_model.feature_importances_
     
     # Create feature indices
     indices = np.argsort(importances)[::-1]
     
-    # Plot top N feature importances
+    # Plot top feature importances
     plt.figure(figsize=(12, 8))
     plt.title('Top Feature Importances - Random Forest with HOG Features')
     plt.bar(range(num_features), importances[indices[:num_features]], align='center')
@@ -107,7 +107,7 @@ def plot_feature_importance(rf_model, num_features=20):
     print(f"Top {num_features} feature importance plot saved as 'rf_hog_feature_importance.png'")
 
 def optimize_hyperparameters(X, y):
-    """Find optimal hyperparameters for Random Forest using GridSearchCV."""
+    #Find optimal hyperparameters for Random Forest using GridSearchCV.
     # Split data for optimization
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42, stratify=y
@@ -152,14 +152,14 @@ def optimize_hyperparameters(X, y):
     return best_params, scaler
 
 def save_model(model, scaler, filename="random_forest_hog.pkl"):
-    """Save the trained model and scaler to a pickle file."""
+    # Save the trained model and scaler using pickle 
     # Create a dictionary with both model and scaler
     model_data = {
         'model': model,
         'scaler': scaler
     }
     
-    # Save to pickle file
+    # Save model using pickle
     with open(filename, 'wb') as file:
         pickle.dump(model_data, file)
     
