@@ -29,7 +29,7 @@ def load_hog_features(csv_path="hog_features.csv"):
     return features, labels, file_paths
 
 def train_random_forest(X, y, n_estimators=100, max_depth=None, min_samples_split=2, min_samples_leaf=1):
-    """Train a Random Forest classifier using the provided HOG features and labels."""
+    # Train a Random Forest classifier using the provided HOG features and labels.
     # Split data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42, stratify=y
